@@ -10,23 +10,23 @@ namespace GradeBook
             grades = new List<double>();
             this.name = name;
         }
-        public void showStatistics()
+        public Statistics getStatistics()
         {
-            double minValue = double.MaxValue;
-            double maxValue = double.MinValue;
-            var result = 0.0;
+            var result = new Statistics();
+            result.Low = double.MaxValue;
+            result.High = double.MinValue;
+            
+
             foreach (var grade in grades)
             {
-                if (grade < minValue) minValue = grade;
-                if (grade > maxValue) maxValue = grade;
+                if (grade < result.Low) result.Low = grade;
+                if (grade > result.High) result.High = grade;
 
-                result += grade;
+                result.Average += grade;
             }
-            result /= grades.Count;
-            Console.WriteLine($"MaxValue is {maxValue}");
-            Console.WriteLine($"minValue is {minValue}");
-            Console.WriteLine($"Average is {result}");
+            result.Average /= grades.Count;
 
+            return result;
         }
         public void addGrade(double grade)
         {
